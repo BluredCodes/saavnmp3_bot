@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { TelegramBot } = require('telegram-bot-api');
+const TelegramBot = require('telegram-bot-api');
 
 // Replace 'YOUR_TELEGRAM_BOT_TOKEN' with your actual bot token
 const token = '6190647327:AAFxS6-pwJldMaOtWmptqoFK9j5ABJd8KEs';
@@ -15,7 +15,7 @@ const app = express();
 app.use(bodyParser.json());
 
 // Handle incoming Telegram webhook requests
-app.post(`/webhook/${token}`, (req, res) => {
+app.post('/webhook', (req, res) => {
   // Process the incoming update from Telegram
   bot.processUpdate(req.body);
 
@@ -24,6 +24,7 @@ app.post(`/webhook/${token}`, (req, res) => {
 });
 
 // Start the server
-app.listen(process.env.PORT || 3000, () => {
-  console.log('Server is running');
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
 });
